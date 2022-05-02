@@ -18,8 +18,8 @@ public class QueueService implements Service {
         if (req != null) {
             Queue<Response> queue = queues.get(req.getSourceName());
             if (ServiceNotions.GET.equals(req.httpRequestType())) {
-                result = queue != null && !queue.isEmpty() ? queue.poll()
-                        : new Response("", ServiceNotions.FAILED_STATUS);
+                    Response response = queue != null ? queue.poll() : null;
+                    result = response != null ? response : new Response("", ServiceNotions.FAILED_STATUS);
             } else if (ServiceNotions.POST.equals(req.httpRequestType())) {
                 if (queue != null) {
                     result = new Response(req.getParam(), ServiceNotions.SUCCESSFUL_STATUS);
